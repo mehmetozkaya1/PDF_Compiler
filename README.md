@@ -1,6 +1,6 @@
-#PDF Editor
+# PDF Editor
 A small tool created to edit pdf using Python language tkinter and pypdf2 library.
-##Definition
+## Definition
 A tool that I developed with my friend [Mehmet]([http://www.example.com](https://github.com/mehmetozkaya1)) to facilitate the repetitive task of editing PDFs in daily life.
 
 It is a customized format for our own use and only works correctly with certain pdf formats.
