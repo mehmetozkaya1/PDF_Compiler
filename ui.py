@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import filedialog
+from tkinter import filedialog , font
 from tkinter import messagebox
 from PyPDF2 import PageObject, PdfReader, PdfWriter
 
@@ -10,67 +10,75 @@ class App(Tk):
         # Main adjustments
         master.title("Converter")
         master.resizable(False, False)
-        bg_color = "grey"
+        bg_color = "#bec4c4"
 
-        x = 500
-        y = 250
+        x , y = 400 , 50*4
+
+        v = x*0.975
+
+        button_font = font.Font(family = "Arial", size = 8, weight = "bold")
 
         # Canvas
         self.canvas = Canvas(master, width=x, height=y)
         self.canvas.pack()
 
         # First Top Frame
-        self.top_frame = Frame(master, bg=bg_color, width= x * 0.95, height= y * 0.15)
-        self.top_frame.place(x= x * 0.025, y= y*0.025)
+        self.top_frame = Frame(master, bg=bg_color, width=v, height= y/4-5)
+        self.top_frame.place(anchor='n',x=x/2,y=y/4*0+5)
 
         # Second Top Frame
-        self.top_frame2 = Frame(master, bg=bg_color, width= x * 0.95, height= y * 0.15)
-        self.top_frame2.place(x= x * 0.025, y= y*0.2)
+        self.top_frame2 = Frame(master, bg=bg_color, width=v, height= y/4-5)
+        self.top_frame2.place(anchor='n',x=x/2,y=y/4*1+5)
 
         # Left Frame
-        self.left_frame = Frame(master, bg=bg_color, width= x * 0.69, height= y * 0.62)
-        self.left_frame.place(x= x * 0.025, y= y*0.37)
+        self.left_frame = Frame(master, bg=bg_color, width= v/3*2-5, height= y/4*2-5)
+        self.left_frame.place(anchor='nw',x= x/80,y=y/4*2+5)
 
         # Right Frame
-        self.right_frame = Frame(master, bg=bg_color, width= x * 0.25, height= y * 0.62)
-        self.right_frame.place(x= x * 0.73, y= y*0.37)
+        self.right_frame = Frame(master, bg=bg_color, width= v/3, height= y/4*2-5)
+        self.right_frame.place(anchor='ne',x= x-(x/80),y=y/4*2+5)
+
+
+
 
         # Input Label
-        self.input_label = Label(self.top_frame, text="Please enter input files",fg="black", bg=bg_color)
-        self.input_label.place(x=x*0.05, y=y*0.037)
+        self.input_label = Label(self.top_frame, text="Please enter input files",fg="black", font=('Arial',10), bg=bg_color)
+        self.input_label.place(anchor='w',x= x/20, y= (y/4*1-5)/2)
 
         # Input Button
-        self.btn_input = Button(self.top_frame, text="Input Files", width=15, height=1, command=self.select_files)
-        self.btn_input.place(x=x*0.7, y=y*0.03)
+        self.btn_input = Button(self.top_frame, text="Input Files", width= 14 , height=1, command=self.select_files, font=button_font)
+        self.btn_input.place(anchor='w',x= (x/80)+x/3*2,y= (y/4*1-5)/2)
+
 
         # Output Label
-        self.output_label = Label(self.top_frame2, text="Please enter output files",fg="black", bg=bg_color)
-        self.output_label.place(x=x*0.05, y=y*0.037)
+        self.output_label = Label(self.top_frame2, text="Please enter output files",fg="black",font=('Arial',10), bg=bg_color)
+        self.output_label.place(anchor='w',x= x/20, y= (y/4*1-5)/2)
 
         # Output Button
-        self.btn_output = Button(self.top_frame2, text="Output Files", width=15, height=1, command=self.select_files2)
-        self.btn_output.place(x=x*0.7, y=y*0.03)
+        self.btn_output = Button(self.top_frame2, text="Output Files", width=14, height=1, command=self.select_files2, font=button_font)
+        self.btn_output.place(anchor='w',x= (x/80)+x/3*2,y= (y/4*1-5)/2)
+
 
         # Convert Button
-        self.btn_convert = Button(self.right_frame, text="Convert", width=15, height=2, bg="green", fg="white", command=self.convert)
-        self.btn_convert.place(x=x*0.01, y=y*0.13)
+        self.btn_convert = Button(self.right_frame, text="Convert", width=14, height=1, bg="#96ff9f", fg="black", command=self.convert, font=button_font)
+        self.btn_convert.place(anchor='center',x= x/6, y= (y/4*1)/2)
 
         # Cancel Button
-        self.btn_cancel = Button(self.right_frame, text="Cancel", width=15, height=2, bg="red", fg="white")
-        self.btn_cancel.place(x=x*0.01, y=y*0.3)
+        self.btn_cancel = Button(self.right_frame, text="Cancel", width=14, height=1, bg="#fff196", fg="black", command=self.convert, font=button_font)
+        self.btn_cancel.place(anchor='n',x= x/6, y= (y/4*2)/2)
 
         # Checkboxes
         self.var1 = IntVar(master)
-        self.option1 = Checkbutton(self.left_frame, text="Clear Empty Pages", onvalue=1, offvalue=0, variable=self.var1, font=("Verdana",15), bg=bg_color)
-        self.option1.place(x = x* 0.005, y = y * 0.005)
+        self.option1 = Checkbutton(self.left_frame, text="Clear Duplicates", onvalue=1, offvalue=0, variable=self.var1, bg=bg_color) #, font=("Arial",15)
+        self.option1.place(anchor='nw',x= x/80, y = (y/2)/3*0+2)
 
         self.var2 = IntVar(master)
-        self.option2 = Checkbutton(self.left_frame, text="Add Empty Pages", onvalue=1, offvalue=0,variable=self.var2, font=("Verdana",15), bg=bg_color)
-        self.option2.place(x = x* 0.005, y = y * 0.23)
+        self.option2 = Checkbutton(self.left_frame, text="Add Empty Pages", onvalue=1, offvalue=0,variable=self.var2, bg=bg_color)#, font=("Arial",15)
+        self.option2.place(anchor='nw',x= x/80, y = (y/2)/3*1+2)
         
         self.var3 = IntVar(master)
-        self.option3 = Checkbutton(self.left_frame, text="Option 3", onvalue=1, offvalue=0,variable=self.var3, font=("Verdana",15), bg=bg_color)
-        self.option3.place(x = x* 0.005, y = y * 0.45)
+        self.option3 = Checkbutton(self.left_frame, text="Useless Button", onvalue=1, offvalue=0,variable=self.var3, bg=bg_color)#, font=("Arial",15)
+        self.option3.place(anchor='nw',x= x/80, y = (y/2)/3*2+2)
     
     def page_scan(self, reader):
 
@@ -113,7 +121,7 @@ class App(Tk):
         for page in listP:
             pdf_writer.add_page(page)
 
-        with open('out.pdf', 'wb') as f:
+        with open(self.path+'/'+self.source.split('/')[-1], 'wb') as f:
             pdf_writer.write(f)
 
     def convert(self):
