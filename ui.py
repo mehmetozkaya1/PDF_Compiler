@@ -60,11 +60,11 @@ class App(Tk):
 
 
         # Convert Button
-        self.btn_convert = Button(self.right_frame, text="Convert", width=14, height=1, bg="#96ff9f", fg="black", command=self.convert, font=button_font)
+        self.btn_convert = Button(self.right_frame, text="Convert", width=14, height=1,activebackground="#96ff9f" , fg="black", command=self.convert, font=button_font)
         self.btn_convert.place(anchor='center',x= x/6, y= (y/4*1)/2)
 
         # Cancel Button
-        self.btn_cancel = Button(self.right_frame, text="Cancel", width=14, height=1, bg="#fff196", fg="black", command=self.convert, font=button_font)
+        self.btn_cancel = Button(self.right_frame, text="Cancel", width=14, height=1,  activebackground="#fff196", fg="black", command=self.convert, font=button_font)
         self.btn_cancel.place(anchor='n',x= x/6, y= (y/4*2)/2)
 
         # Checkboxes
